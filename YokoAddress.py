@@ -43,8 +43,6 @@ def getAddress():
     print("Please, input DIP switches configuration \
 as list (domain number, station number: 0 1 0 0 1 0 1 1...):")
     inputString = input("-->").split(None)
-
-    
     
     for k in inputString:
         if k == '1':
