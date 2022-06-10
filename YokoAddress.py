@@ -1,8 +1,8 @@
 import printDIP
-
+from parseAddressString import parseAddressString
 
 userInput = ""
-
+## ================================================================
 def printMenu():
     """Print a simple menu."""
     
@@ -11,7 +11,7 @@ def printMenu():
     print("2 - get address from DIP ")
     print("q - exit")
     print()    
-
+## ================================================================
 def setAddress():
     """Set address on DIP switches from user input."""
     
@@ -34,29 +34,25 @@ def setAddress():
         print()
         print("Error:")
         print("Input should be an integer in range.")
-
+## ================================================================
 def getAddress():
     """Get address from user input (from DIP switches)."""
 
-    inputString = ""
-    getDipList = []
-    print("Please, input DIP switches configuration \
-as list (domain number, station number: 0 1 0 0 1 0 1 1...):")
-    inputString = input("-->").split(None)
+##    domainString = ""
+##    stationString = ""
     
-    for k in inputString:
-        if k == '1':
-            getDipList.append(True)
-        else:
-            getDipList.append(False)
-
-    if len(getDipList) != 16:
-        print("Error with a list members quantity.")
-        return
-
-    ## Дописать прогу!!!!
+    print("Please input DIP switches configuration \
+as string (domain number: 010101101...):")
+    domainString = input("DOMAIN --> ")
+    stationString = input("STATION --> ")
     
-        
+    print()
+    address = parseAddressString(domainString, stationString)
+    print("Domain, station")
+    print(address)
+##    print(f"Domain number: {0}\nStation number: {1}", address[0], address[1])
+    
+## ===================== Main cycle =====================
 while (userInput != 'q'):
     
     printMenu()
