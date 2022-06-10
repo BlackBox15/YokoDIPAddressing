@@ -4,6 +4,13 @@ def parseAddressString(domainString, stationString):
     domainNameInList = []
     stationNameInList = []
     result = []
+
+    ## Errors code
+    DOMPARERROR = 0
+    STNPARERROR = 1
+    DOMDECODEERROR = 2
+    STNDECODEERROR = 3
+    NORMAL = 4
     
     ## Проверка входящей строки (номер домена) на длину.
     ## Адрес домена должен состоять из 8 символов,
@@ -16,8 +23,10 @@ def parseAddressString(domainString, stationString):
         domainNameInList = packStringToInteger(domainString)
         
     else:
-        print("Domain parameter error")
-        return;
+##        print("Domain parameter error")
+##        result[0] = DOMPARERROR
+        result.insert(0, DOMPARERROR)
+        return result
     
     ## Проверка входящей строки (номер станции) на длину.
     ## Адрес станции должен состоять из 8 символов.
@@ -26,8 +35,9 @@ def parseAddressString(domainString, stationString):
         stationNameInList = packStringToInteger(stationString)
         
     else:
-        print("Station parameter error")
-        return;
+##        print("Station parameter error")
+        result.insert(0, STNPARERROR)
+        return result
 
     ## Parity bits.
     domainParityBit = domainNameInList[0]
@@ -41,21 +51,26 @@ def parseAddressString(domainString, stationString):
        (domainQnttyBits % 2 != 0 and domainParityBit == 0):
         
         domainAddress = listBinToInteger(domainNameInList[3:])
-        result.append(domainAddress)
+        result.insert(1, domainAddress)
+
         
     else:
-        print("Error in domain number.")
-        return
+##        print("Error in domain number.")
+        result.insert(0, DOMDECODEERROR)
+        return result
         
     if (stationQnttyBits % 2 == 0 and stationParityBit == 1) or \
        (stationQnttyBits % 2 != 0 and stationParityBit == 0):
         
         stationAddress = listBinToInteger(stationNameInList[1:])
-        result.append(stationAddress)
+        result.insert(2, stationAddress)
         
     else:
-        print("Error in station number.")
-        return
+##        print("Error in station number.")
+        result.insert(0, STNDECODEERROR)
+        return result
+
+        result.insert(0, NORMAL)
     
     return result
 ## ================================================================

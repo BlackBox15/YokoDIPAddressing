@@ -45,12 +45,27 @@ def getAddress():
 as string (domain number: 010101101...):")
     domainString = input("DOMAIN --> ")
     stationString = input("STATION --> ")
-    
-    print()
+
     address = parseAddressString(domainString, stationString)
-    print("Domain, station")
-    print(address)
-##    print(f"Domain number: {0}\nStation number: {1}", address[0], address[1])
+    print()
+    match(address[0]):
+        case 0:
+            print("Domain input parameter error.")
+        case 1:
+            print("Station input parameter error.")
+        case 2:
+            print("Domain decode error.")
+        case 3:
+            print("Station decode error.")
+        case 4:
+            print(f"Domain number: {0}\nStation number: {1}", \
+                  address[1], address[2])
+
+    
+##    print()
+##    address = parseAddressString(domainString, stationString)
+##    print("Domain, station")
+##    print(address)
     
 ## ===================== Main cycle =====================
 while (userInput != 'q'):
