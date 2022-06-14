@@ -12,9 +12,9 @@ def parseAddressString(domainString, stationString):
     STNDECODEERROR = 3
     NORMAL = 4
     
-    ## Проверка входящей строки (номер домена) на длину.
-    ## Адрес домена - 8 символов,
-    ## 1, 2-й бит - равен 0.
+    # Checking the length of input string (domain number).
+    # Domain address - strictly 8 symbols.
+    # 1, 2 bit strictly equal 0.
     
     if len(domainString) == 8 and \
             domainString[1] == '0' and \
@@ -26,8 +26,8 @@ def parseAddressString(domainString, stationString):
         result.insert(0, DOMPARERROR)
         return result
     
-    ## Проверка входящей строки (номер станции) на длину.
-    ## Адрес станции - 8 символов.
+    # Checking the length of input string (station number).
+    # Station address - strictly 8 symbols.
     
     if len(stationString) == 8:
         
