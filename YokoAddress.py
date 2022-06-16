@@ -9,12 +9,14 @@ menuInput = "_"
 
 #===============================================================================
 def printMenu():
-    """Print a simple menu."""
+    """Print a menu."""
     
-    print()
-    print("1 - set address on DIP")
-    print("2 - get address from DIP ")
-    print("q - exit")
+    print()    
+    print("--------[ Yoko DIP addressing ]--------")
+    print()    
+    print("1 set address on DIP")
+    print("2 get address from DIP ")
+    print("q quit")
     print()    
 
 #===============================================================================
@@ -24,11 +26,8 @@ def setAddress():
     MAXDOMAIN = 31
     MAXSTATION = 64
     
-    print("Please, input an necessary data:")
-    
     try:
-        domainNumber = int(input("Domain number (max = 16 for Centum VP, \
-max = 31 for ProSafe-RS) --> "))
+        domainNumber = int(input("Domain number (1-31) --> "))
         stationNumber = int(input("Station number (1-64) --> "))
         
         if domainNumber > MAXDOMAIN \
@@ -50,7 +49,7 @@ def getAddress():
     """Get address from user input (from DIP switches)."""
 
     print("""Please input DIP switches configuration \
-as string (domain number: 010101101...).""")
+as string (domain number: 10000011...).""")
     
     domainString = input("DOMAIN --> ")
     stationString = input("STATION --> ")
@@ -67,23 +66,30 @@ as string (domain number: 010101101...).""")
         case 3:
             print("Station decode error.")
         case 4:
-            print(f"Domain number: {address[1]}\nStation number: {address[2]}")
-    
+            print(f"""\t=========================
+        |Domain address:\t{address[1]}
+        =========================
+        |Station address:\t{address[2]}  
+        =========================""")
+
+
 #====================   Menu cycle  ============================================
-while (menuInput not in 'qQ'):
+while (True):
     
     printMenu()
     menuInput = input("--> ")
-
-    try:
-        caseNumber = int(menuInput)
-    except ValueError:
-        continue
-    else:
-        print()
-        match (caseNumber):
-            case 1:
-                setAddress()
-            case 2:
-                getAddress()
+    print()
+    match (menuInput):
+        case '1':
+            print("Set address to DIP.")
+            setAddress()
+        case '2':
+            print("Get address from DIP.")
+            getAddress()
+        case 'q' | 'Q':
+            print("Programm is closing...")
+            break
+        case _:
+            print("\tInput a menu item.")
+        
 
